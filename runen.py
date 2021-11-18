@@ -1,4 +1,5 @@
 skip = 0
+au = True
 
 def get_word(context, pos):
 	found = False
@@ -21,6 +22,8 @@ def get_word(context, pos):
 	return (start_pos, output)
 
 def ask(context, i, sug, oth):
+	global au
+	if not au: return sug
 	other = ""
 	for x in range(len(oth)):
 		other += " or " + oth[x] + "(" + str(x+1) + ")"
@@ -48,22 +51,26 @@ def e(i, input):
 	if final == "ᛇ" and sug == "ᛇ": skip = 1
 	return final
 
-def q(i, input):
+def q(i, input):#TODO
 	return
 
-def v(i, input):
+def v(i, input):#TODO
 	return
 
-def ï(i, input):
+def ï(i, input):#TODO
 	return
 
-def ë(i, input):
+def ë(i, input):#TODO
 	return
 
-def translate_l_to_r(input):
+def num(i,input):#TODO
+	return
 
+def translate_l_to_r(input, ask_user=True, latin_numbers=False, german_replacement=True):
+	global au
 	global skip
 	output = []
+	au = ask_user
 	input = list(input.upper())
 	input.append(' ')
 
@@ -98,9 +105,9 @@ def translate_l_to_r(input):
 				"X":"ᚲᛊ",
 				"Y":"ᛃ",
 				"Z":"ᛉ",
-				"Ä":"ᚨᛖ",
-				"Ö":"ᛟᛖ",
-				"Ü":"ᚢᛖ",
+				"Ä":"ᚨᛖ",#TODO
+				"Ö":"ᛟᛖ",#TODO
+				"Ü":"ᚢᛖ",#TODO
 				"Ñ":"ᚾᛃ",
 				"Ò":"ᛟ",
 				"Ó":"ᛟ",
@@ -119,16 +126,12 @@ def translate_l_to_r(input):
 				"Ù":"ᚢ",
 				"Ú":"ᚢ",
 				"Û":"ᚢ",
-				"":"",
-				"":"",
-				"":"",
-
-				"":""
+				"":""#TODO
 			}
 			output.append(switch.get(input[i], input[i]))
 		else:
 			skip -= 1
 
+	output.pop()
 	final = "".join(output)
-	print(str(output))
 	return(final)
