@@ -35,6 +35,12 @@ def convertColour(c):
 			mode = not mode
 			digit += 1
 		return (first, second, third)
-	if type(c) == tuple:
-		return
-	return
+	elif type(c) == tuple:
+		r = ""
+		rgb = [0,0,0]
+		rgb[0],rgb[1],rgb[2] = c
+		for i in range(3):
+			r += hex[int(rgb[i]/16)]
+			r += hex[rgb[i]%16]
+		return r
+	return -1
