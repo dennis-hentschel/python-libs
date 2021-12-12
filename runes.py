@@ -1,7 +1,6 @@
 skip = 0
 au = True
 gr = True
-ln = False
 asked_e = False
 answer_e = ""
 
@@ -41,7 +40,7 @@ def ask(context, i, sug, oth):
 	while int(ans) > len(oth):
 		ans = input("Invalid Input!\n" + ask_txt)
 	if str(ans) == "" or str(ans) == "0": return sug
-	return oth[ans-1]
+	return oth[int(ans)-1]
 
 def e(i, input):
 	global skip
@@ -85,15 +84,15 @@ def v(i, input):
 	if input[i] != "V": return -1
 	return ask(input,i,"ᚠ",["ᚢ"])
 
-def num(i,input):
-	if latin_numbers:
-		pass
+def jy(i,input):
+	if input[i] =! "J" and input[i] != "Y": return -1
+	if input[i] == "J": return ask(input,i,"ᛋ","ᛃ")
+	else: return ask(input,i,"ᛋ","ᛃ")
 
-def translate(input, ask_user=True, latin_numbers=False, german_replacement=True):
+def translate(input, ask_user=True, german_replacement=True):
 	global au
 	global answer_e
 	global asked_e
-	global ln
 	global gr
 	global skip
 	output = []
@@ -117,7 +116,7 @@ def translate(input, ask_user=True, latin_numbers=False, german_replacement=True
 				"G":"ᚷ",
 				"H":"ᚺ",
 				"I":"ᛁ",
-				"J":"ᛃ",#TODO
+				"J":jy(i,input),
 				"K":"ᚲ",
 				"L":"ᛚ",
 				"M":"ᛗ",
@@ -132,7 +131,7 @@ def translate(input, ask_user=True, latin_numbers=False, german_replacement=True
 				"V":v(i,input),
 				"W":"ᚹ",
 				"X":"ᚲᛊ",
-				"Y":"ᛃ",#TODO
+				"Y":jy(i,input),
 				"Z":"ᛉ",
 				"Ä":ae(),
 				"Ö":oe(),
@@ -155,7 +154,7 @@ def translate(input, ask_user=True, latin_numbers=False, german_replacement=True
 				"Ù":"ᚢ",
 				"Ú":"ᚢ",
 				"Û":"ᚢ",
-				"":""#TODO
+				"":""
 			}
 			asked_e = False
 			output.append(switch.get(input[i], input[i]))
