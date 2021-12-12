@@ -85,7 +85,7 @@ def v(i, input):
 	return ask(input,i,"ᚠ",["ᚢ"])
 
 def jy(i,input):
-	if input[i] =! "J" and input[i] != "Y": return -1
+	if input[i] != "J" and input[i] != "Y": return -1
 	if input[i] == "J": return ask(input,i,"ᛋ","ᛃ")
 	else: return ask(input,i,"ᛋ","ᛃ")
 
@@ -98,7 +98,6 @@ def translate(input, ask_user=True, german_replacement=True):
 	output = []
 	au = ask_user
 	gr = german_replacement
-	ln = latin_numbers
 	input = list(input.upper())
 	input.append(' ')
 
@@ -162,6 +161,5 @@ def translate(input, ask_user=True, german_replacement=True):
 			skip -= 1
 
 	output.pop()
-	print(str(output))
 	final = "".join(output)
 	return(final)
