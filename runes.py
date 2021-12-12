@@ -1,6 +1,7 @@
 skip = 0
 au = True
 gr = True
+er = False
 asked_e = False
 answer_e = ""
 
@@ -49,13 +50,10 @@ def e(i, input):
 	if input[i] != "E": return -1
 	if asked_e: return str(answer_e)
 	if input[i+1] in ["I", "Y", "J"]:
-		sug = "ᛇ"
-		oth = ["ᛖ"]
+		final = ask(input,i,"ᛇ",["ᛖ"+input[i+1]])
+		skip = 1
 	else:
-	    sug = "ᛖ"
-	    oth = ["ᛇ"]
-	final = ask(input, i, sug, oth)
-	if final == "ᛇ" and sug == "ᛇ": skip = 1
+		final = ask(input,i,"ᛖ",["ᛇ"])
 	asked_e = True
 	answer_e = final
 	return final
@@ -84,20 +82,28 @@ def v(i, input):
 	if input[i] != "V": return -1
 	return ask(input,i,"ᚠ",["ᚢ"])
 
-def jy(i,input):
-	if input[i] != "J" and input[i] != "Y": return -1
-	if input[i] == "J": return ask(input,i,"ᛋ","ᛃ")
-	else: return ask(input,i,"ᛋ","ᛃ")
+def t(i, input):
+	global skip
+	global er
+	if input[i] != "T": return -1
+	if (not er) or (not input[i+1] == "H"): return "ᛏ"
+	else:
+		skip = 1
+		return ask(input,i,"ᚦ",["ᛏᚺ"])
 
-def translate(input, ask_user=True, german_replacement=True):
+	
+
+def translate(input, ask_user=True, german_replacement=True, english_replacement=False):
 	global au
 	global answer_e
 	global asked_e
 	global gr
+	global er
 	global skip
 	output = []
 	au = ask_user
 	gr = german_replacement
+	er = english_replacement
 	input = list(input.upper())
 	input.append(' ')
 
@@ -115,7 +121,7 @@ def translate(input, ask_user=True, german_replacement=True):
 				"G":"ᚷ",
 				"H":"ᚺ",
 				"I":"ᛁ",
-				"J":jy(i,input),
+				"J":"ᛃ",
 				"K":"ᚲ",
 				"L":"ᛚ",
 				"M":"ᛗ",
@@ -125,12 +131,12 @@ def translate(input, ask_user=True, german_replacement=True):
 				"Q":q(i,input),
 				"R":"ᚱ",
 				"S":"ᛊ",
-				"T":"ᛏ",
+				"T":t(i,input),
 				"U":"ᚢ",
 				"V":v(i,input),
 				"W":"ᚹ",
 				"X":"ᚲᛊ",
-				"Y":jy(i,input),
+				"Y":"ᛃ",
 				"Z":"ᛉ",
 				"Ä":ae(),
 				"Ö":oe(),
