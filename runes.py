@@ -50,7 +50,9 @@ def e(i, input):
 	if input[i] != "E": return -1
 	if asked_e: return str(answer_e)
 	if input[i+1] in ["I", "Y", "J"]:
-		final = ask(input,i,"ᛇ",["ᛖ"+input[i+1]])
+		if input[i+1] == "I": next_letter = "ᛁ"
+		else: next_letter = "ᛃ"
+		final = ask(input,i,"ᛇ",["ᛖ"+next_letter])
 		skip = 1
 	else:
 		final = ask(input,i,"ᛖ",["ᛇ"])
@@ -91,7 +93,14 @@ def t(i, input):
 		skip = 1
 		return ask(input,i,"ᚦ",["ᛏᚺ"])
 
-	
+def n(i, input):
+	global skip
+	if input[i] != "N": return -1
+	if input[i+1] == "G":
+		skip = 1
+		return ask(input,i,"ᛜ",["ᚾᚷ"])
+	else: return "ᚾ"
+
 
 def translate(input, ask_user=True, german_replacement=True, english_replacement=False):
 	global au
@@ -125,7 +134,7 @@ def translate(input, ask_user=True, german_replacement=True, english_replacement
 				"K":"ᚲ",
 				"L":"ᛚ",
 				"M":"ᛗ",
-				"N":"ᚾ",
+				"N":n(i,input),
 				"O":"ᛟ",
 				"P":"ᛈ",
 				"Q":q(i,input),
